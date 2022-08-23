@@ -40,5 +40,7 @@ jobs:
               user: root
               private-key: id_rsa.pem
           EOF
-      - name: Apply Changes
-        run: bolt plan run pyapp::install -t webapps
+      - name: Apply Changes to A
+        run: bolt plan run pyapp::install -t webapps_a
+      - name: Apply Changes to B
+        run: bolt plan run pyapp::install -t webapps_b
