@@ -12,5 +12,6 @@ sudo apt-get update
 sudo apt-get install puppet-bolt
 rm puppet-tools-release-*.deb
 
+# puppet-VM = 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
 # git remote add origin https://<Token>@github.com/ezjung/iac-puppet.git
-# git remote add origin https://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@github.com/ezjung/iac-puppet.git
+# git remote add origin https://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@github.com/ezjung/iac-puppet-bolt.git

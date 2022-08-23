@@ -1,15 +1,24 @@
 # This is an example inventory.yaml
 # To read more about inventory files, see https://pup.pt/bolt-inventory
 #
-# groups:
-#   - name: linux
-#     targets:
-#       - target1.example.com
-#       - target2.example.com
-#     config:
-#       transport: ssh
-#       ssh:
-#         private-key: /path/to/private_key.pem
+groups:
+  - name: webapps
+    targets:
+      - 45.79.76.160
+      - 74.207.249.80
+  - name: webapps_a
+    targets:
+      - 45.79.76.160
+  - name: webapps_b
+    targets:
+      - 74.207.249.80
+config:
+  transport: ssh
+  ssh:
+    host-key-check: false
+    user: root
+    # password: 6fXgKmarQGO1Xqn5PolgZxH4BDubu_lLJePfExYsvzk
+    private-key: /root/.ssh/id_rsa
 #   - name: windows
 #     targets:
 #       - name: win1
