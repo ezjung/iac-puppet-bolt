@@ -16,7 +16,7 @@ jobs:
       - name: Add private key
         run: |
           echo << EOF > id_rsa.pem
-          ${{ secretes.SSH_PRIVATE_KEY }}
+          ${{ secrets.SSH_PRIVATE_KEY }}
           EOF
 
       - name: Create inventory file
