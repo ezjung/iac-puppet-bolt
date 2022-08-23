@@ -1,0 +1,46 @@
+name: CI/CD for puppet bolt
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run setup script for bolt
+        run: ./setup.sh
+
+      - name: Add private key
+        run: |
+          echo << EOF > id_rsa.pem
+          ${{ secretes.SSH_PRIVATE_KEY }}
+          EOF
+
+      - name: Create inventory file
+        run: |
+          echo << EOF > inventory.yaml
+          groups:
+            - name: webapps
+              targets:
+                - ${{ secrets.LINODE_WEBAPP_A }}
+                - ${{ secrets.LINODE_WEBAPP_B }}
+            - name: webapps_a
+              targets:
+                - ${{ secrets.LINODE_WEBAPP_A }}
+            - name: webapps_b
+              targets:
+                - ${{ secrets.LINODE_WEBAPP_B }}
+          config:
+            transport: ssh
+            ssh:
+              host-key-check: false
+              user: root
+              private-key: id_rsa.pem
+          EOF
+      - name: Apply Changes
+        run: bolt plan run pyapp::install --targets webapps_a
+      - name: Apply Changes
+        run: bolt plan run pyapp::install --targets webapps_b
